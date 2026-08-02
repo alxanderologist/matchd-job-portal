@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./output.css">
+    <title>Matchd | Employer Portal</title>
+</head>
+<body class="bg-blue-50/50 text-slate-800 font-sans min-h-screen flex">
+
+    <!-- menu -->
+    <aside class="w-64 bg-slate-900 text-white min-h-screen p-5 flex flex-col justify-between border-r border-slate-800">
+        <div class="space-y-8">
+
+            <div class="px-2 pt-2 flex items-center gap-3">
+                <img src="images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium ml-auto">Employer</span>
+            </div>
+
+            <!--  list of menu -->
+            <nav class="space-y-1.5">
+                <a href="e-dashboard.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    Dashboard
+                </a>
+                <a href="e-jobs.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                    Create a Job
+                </a>
+                <a href="#" class="flex items-center gap-3 bg-[#1f48ff] text-white font-semibold px-3 py-2 rounded-xl transition text-sm shadow-lg shadow-[#1f48ff]/20">
+                    <i data-lucide="users" class="w-3 h-4"></i>
+                    Approve Applicants
+                    <span class="ml-auto bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold">12</span>
+                </a>
+                <a href="e-interview.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    Set Interview
+                </a>
+            </nav>
+        </div>
+
+        <!-- foot-profile -->
+        <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-[#1f48ff] text-white flex items-center justify-center font-bold text-xs">M</div>
+            <div class="overflow-hidden">
+                <p class="text-xs font-semibold text-slate-200 truncate">MCorp HR</p>
+                <p class="text-[11px] text-slate-400 truncate">hr@mcorp.io</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        
+        <!-- Top Navbar -->
+        <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-10">
+            <!-- Search Bar -->
+            <div class="relative w-72">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" placeholder="Search applicants or tags..." class="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-100/80 border border-transparent rounded-lg focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span class="w-2 h-2 bg-[#1f48ff] rounded-full absolute top-1.5 right-1.5 border-2 border-white"></span>
+                </button>
+                <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition shadow-sm flex items-center gap-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Create a Job
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-8 space-y-6 max-w-7xl w-full mx-auto">
+
+            <!-- Page Title Header -->
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Approve Applicants</h1>
+                <p class="text-sm text-slate-500 mt-0.5">Review candidate skill matches and progress them through your hiring pipeline.</p>
+            </div>
+
+            <!-- Quick Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
+                    <div class="p-3 bg-[#1f48ff]/10 rounded-xl text-[#1f48ff]">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Total Applicants</p>
+                        <p class="text-2xl font-bold text-slate-900">48</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
+                    <div class="p-3 bg-amber-50 rounded-xl text-amber-600">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Pending Review</p>
+                        <p class="text-2xl font-bold text-slate-900">12</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
+                    <div class="p-3 bg-[#457a00]/10 rounded-xl text-[#457a00]">
+                        <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Interviews Scheduled</p>
+                        <p class="text-2xl font-bold text-slate-900">6</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applicants Table Card -->
+            <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <h3 class="font-bold text-slate-900 text-sm">Recent Applications</h3>
+                    <button class="text-xs text-slate-500 hover:text-slate-800 font-medium flex items-center gap-1">
+                        Filter <i data-lucide="filter" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50/80 text-slate-400 text-[11px] font-bold uppercase tracking-wider border-b border-slate-100">
+                        <tr>
+                            <th class="py-3.5 px-6">Applicant</th>
+                            <th class="py-3.5 px-4">Applied Job</th>
+                            <th class="py-3.5 px-4">Matched Tag</th>
+                            <th class="py-3.5 px-4">Status</th>
+                            <th class="py-3.5 px-6 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+                        
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-slate-50/50 transition">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">JD</div>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">John Doe</p>
+                                        <p class="text-xs text-slate-400">john.doe@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 text-slate-600 font-medium text-xs">Frontend Engineer</td>
+                            <td class="py-4 px-4">
+                                <!-- Matched Tag pill using #1f48ff -->
+                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+                                    #frontend developer
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-xs font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    Pending Approval
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right space-x-1.5">
+                                <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition shadow-2xs">
+                                    Approve & Set Interview
+                                </button>
+                                <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg text-xs transition">
+                                    Decline
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-slate-50/50 transition">
+                            <td class="py-4 px-6">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">JS</div>
+                                    <div>
+                                        <p class="font-bold text-slate-900 text-sm">Jane Smith</p>
+                                        <p class="text-xs text-slate-400">jane.smith@example.com</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 text-slate-600 font-medium text-xs">Cyber Security Analyst</td>
+                            <td class="py-4 px-4">
+                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1">
+                                    #cybersec
+                                </span>
+                            </td>
+                            <td class="py-4 px-4">
+                                <!-- Status badge using #457a00 -->
+                                <span class="bg-[#457a00]/10 text-[#457a00] border border-[#457a00]/20 text-xs font-semibold px-2.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#457a00]"></span>
+                                    Interview Scheduled
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right space-x-1.5">
+                                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg text-xs transition">
+                                    View Details
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+  
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
