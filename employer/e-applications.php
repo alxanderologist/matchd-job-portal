@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="../output.css">
     <title>Matchd | Employer Portal</title>
 </head>
 <body class="bg-blue-50/50 text-slate-800 font-sans min-h-screen flex">
@@ -14,17 +14,17 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
+                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
                 <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium ml-auto">Employer</span>
             </div>
 
             <!--  list of menu -->
             <nav class="space-y-1.5">
-                <a href="e-dashboard.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-dashboard.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                     Dashboard
                 </a>
-                <a href="e-jobs.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-jobs.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i>
                     Create a Job
                 </a>
@@ -33,7 +33,7 @@
                     Approve Applicants
                     <span class="ml-auto bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold">12</span>
                 </a>
-                <a href="e-interview.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-interview.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="calendar" class="w-4 h-4"></i>
                     Set Interview
                 </a>
@@ -46,6 +46,9 @@
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">MCorp HR</p>
                 <p class="text-[11px] text-slate-400 truncate">hr@mcorp.io</p>
+            </div>
+            <div>
+                <a class="inline-block bg-red-600 text-white font-medium px-4 py-2 rounded-lg text-xs" href="../sessionPHP/logout.php">Logout</a>
             </div>
         </div>
     </aside>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="../output.css">
     <title>Matchd | Employer Portal</title>
 </head>
 <body class="bg-blue-50/50 text-slate-800 font-sans min-h-screen flex">
@@ -14,13 +14,13 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
+                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
                 <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium ml-auto">Employer</span>
             </div>
 
             <!--  list of menu -->
             <nav class="space-y-1.5">
-                <a href="e-dashboard.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-dashboard.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                     Dashboard
                 </a>
@@ -28,12 +28,12 @@
                     <i data-lucide="plus-circle" class="w-4 h-4"></i>
                     Create a Job
                 </a>
-                <a href="e-applications.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-applications.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="users" class="w-3 h-4"></i>
                     Approve Applicants
                     <span class="ml-auto bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold">12</span>
                 </a>
-                <a href="e-interview.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="e-interview.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="calendar" class="w-4 h-4"></i>
                     Set Interview
                 </a>
@@ -46,6 +46,9 @@
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">MCorp HR</p>
                 <p class="text-[11px] text-slate-400 truncate">hr@mcorp.io</p>
+            </div>
+            <div>
+                <a class="inline-block bg-red-600 text-white font-medium px-4 py-2 rounded-lg text-xs" href="../sessionPHP/logout.php">Logout</a>
             </div>
         </div>
     </aside>
@@ -81,8 +84,8 @@
                 <p class="text-sm text-slate-500 mt-0.5">Define job requirements and skills to automatically match with qualified candidates.</p>
             </div>
 
-            
-            <form class="space-y-6" method="post" action="">
+            <!-- Job Form -->
+            <form id="job-form" class="space-y-6" method="POST" action="../employerPHP/create-job.php">
 
                 <!-- 1st part / job details -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
@@ -95,14 +98,14 @@
                       
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Job Title <span class="text-red-500">*</span></label>
-                            <input type="text" placeholder="e.g. Senior Frontend Engineer" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                            <input type="text" name="job-title" placeholder="e.g. Senior Frontend Engineer" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
                         </div>
 
                        
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Employment Type</label>
-                                <select class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <select class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700" name="employment-type">
                                     <option value="full-time">Full-Time</option>
                                     <option value="part-time">Part-Time</option>
                                     <option value="contract">Contract</option>
@@ -111,7 +114,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Work Setup</label>
-                                <select class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <select class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700" name="work-setup">
                                     <option value="remote">Remote</option>
                                     <option value="hybrid">Hybrid</option>
                                     <option value="onsite">On-Site</option>
@@ -122,14 +125,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Location</label>
-                                <input type="text" placeholder="e.g. Manila, Philippines or Remote" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                                <input type="text" placeholder="e.g. Manila, Philippines or Remote" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition" name="location">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Salary Range (Monthly)</label>
                                 <div class="flex items-center gap-2">
-                                    <input type="text" placeholder="Min ($)" class="w-1/2 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                                    <input type="text" placeholder="Min ($)" class="w-1/2 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition" name="min-salary">
                                     <span class="text-slate-400 text-xs">-</span>
-                                    <input type="text" placeholder="Max ($)" class="w-1/2 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                                    <input type="text" placeholder="Max ($)" class="w-1/2 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition" name="max-salary">
                                 </div>
                             </div>
                         </div>
@@ -147,29 +150,21 @@
                     </div>
 
                     <!-- Added Tags -->
-                    <div class="flex flex-wrap gap-2 pt-1">
-                        <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                            #frontend developer
-                            <button type="button" class="hover:text-red-500">&times;</button>
-                        </span>
-                        <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                            #reactjs
-                            <button type="button" class="hover:text-red-500">&times;</button>
-                        </span>
-                        <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-                            #tailwindcss
-                            <button type="button" class="hover:text-red-500">&times;</button>
-                        </span>
+                    <div id="tag-container" class="flex flex-wrap gap-2 pt-1">
+                        
                     </div>
 
-            
                     <div class="flex items-center gap-2 pt-1">
-                        <input type="text" placeholder="Type skill tag (e.g. #typescript) and press Enter..." class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
-                        <button type="button" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2.5 rounded-xl transition">
+                        <input id="tag-input-field" type="text" placeholder="Type skill tag (e.g. #typescript)" class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                        <button id="tag-button" type="button" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2.5 rounded-xl transition">
                             + Add Tag
                         </button>
+                        <input type="hidden" name="submitted-tags" id="submitted-tags-container">
                     </div>
                 </div>
+
+                <script type="module" src="../employerJS/add-tag.js"></script>
+                <script type="module" src="../employerJS/submit-job.js"></script>
 
                 <!-- 3rd part/descriptiom -->
                 <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
@@ -181,13 +176,13 @@
                     <!-- Job  -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Detailed Description</label>
-                        <textarea rows="5" placeholder="Outline daily responsibilities, team culture, and key objectives..." class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition"></textarea>
+                        <textarea name="description" rows="5" placeholder="Outline daily responsibilities, team culture, and key objectives..." class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition"></textarea>
                     </div>
 
                     <!-- Requirements -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Key Requirements & Qualifications</label>
-                        <textarea rows="4" placeholder="• 3+ years experience with React and Tailwind CSS&#10;• Experience with RESTful APIs&#10;• Strong communication skills..." class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition"></textarea>
+                        <textarea name="requirements" rows="4" placeholder="• 3+ years experience with React and Tailwind CSS&#10;• Experience with RESTful APIs&#10;• Strong communication skills..." class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition"></textarea>
                     </div>
                 </div>
 
@@ -200,6 +195,8 @@
                         <i data-lucide="check" class="w-4 h-4"></i> Save & Publish Job
                     </button>
                 </div>
+
+
 
             </form>
 
