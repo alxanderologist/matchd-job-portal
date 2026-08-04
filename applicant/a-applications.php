@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="../output.css">
     <title>Matchd | Applicant Dashboard</title>
 </head>
+
 <body class="bg-blue-50/50 text-slate-800 font-sans min-h-screen flex antialiased">
 
     <!-- Sidebar Navigation -->
@@ -14,14 +16,14 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto"">
-                <span class="text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
+                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
+                <span class=" text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
             </div>
 
             <!-- List of Menu Items -->
             <nav class="space-y-1.5">
-            
-                <a href="a-jobs.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+
+                <a href="a-jobs.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="compass" class="w-4 h-4"></i>
                     Explore Jobs
                 </a>
@@ -30,24 +32,26 @@
                     My Applications
                     <span class="ml-auto bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
                 </a>
-                <a href="a-interview.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="a-interview.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="calendar" class="w-4 h-4"></i>
                     Interviews
                     <span class="ml-auto bg-[#457a00] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1 New</span>
                 </a>
-                <a href="a-profile.html" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="a-profile.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="user" class="w-4 h-4"></i>
                     My Profile & Skills
                 </a>
             </nav>
         </div>
 
-        
         <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">Mazeah P</p>
                 <p class="text-[11px] text-slate-400 truncate">mgp@email.com</p>
+            </div>
+            <div>
+                <a class="inline-block bg-red-600 text-white font-medium px-4 py-2 rounded-lg text-xs" href="../sessionPHP/logout.php">Logout</a>
             </div>
         </div>
     </aside>
@@ -74,7 +78,7 @@
                     <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Track Applications</h1>
                     <p class="text-sm text-slate-500 mt-0.5">Real-time status updates and upcoming interview schedules.</p>
                 </div>
-                
+
                 <div class="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl text-xs font-medium text-slate-600 shrink-0">
                     <button class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs">All (3)</button>
                     <button class="px-3 py-1.5 hover:text-slate-900 rounded-lg transition">Active</button>
@@ -191,9 +195,10 @@
             </div>
         </div>
     </main>
-   
+
     <script>
         lucide.createIcons();
     </script>
 </body>
+
 </html>
