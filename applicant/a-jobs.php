@@ -14,7 +14,7 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto"">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto"">
                 <span class="text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
             </div>
 
@@ -30,7 +30,7 @@
                     My Applications
                     <span class="ml-auto bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                <a href="a-interview.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="calendar" class="w-4 h-4"></i>
                     Interviews
                     <span class="ml-auto bg-[#457a00] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1 New</span>
@@ -44,7 +44,7 @@
 
         
         <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
+            <div class="w-10 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">Mazeah P</p>
                 <p class="text-[11px] text-slate-400 truncate">mgp@email.com</p>
@@ -68,10 +68,6 @@
 
             <!-- Header Notifications & Status -->
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-xl">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Profile Match: 94%
-                </div>
 
                 <button class="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
                     <i data-lucide="bell" class="w-4 h-4"></i>

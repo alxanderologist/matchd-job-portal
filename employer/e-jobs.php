@@ -14,7 +14,7 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto">
                 <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium ml-auto">Employer</span>
             </div>
 
@@ -42,7 +42,7 @@
 
         <!-- profile below menu -->
         <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-[#1f48ff] text-white flex items-center justify-center font-bold text-xs">M</div>
+            <div class="w-10 h-8 rounded-full bg-[#1f48ff] text-white flex items-center justify-center font-bold text-xs">M</div>
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">MCorp HR</p>
                 <p class="text-[11px] text-slate-400 truncate">hr@mcorp.io</p>
@@ -64,11 +64,7 @@
                 <input type="text" placeholder="Search templates or existing posts..." class="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-100/80 border border-transparent rounded-lg focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
             </div>
 
-            <!-- Action Controls -->
             <div class="flex items-center gap-3">
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2 rounded-xl transition">
-                    Save Draft
-                </button>
                 <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition shadow-sm flex items-center gap-2">
                     <i data-lucide="send" class="w-4 h-4"></i> Publish Job Post
                 </button>
@@ -189,10 +185,10 @@
                 <!-- Bottom Submit Bar -->
                 <div class="flex items-center justify-end gap-3 pt-2">
                     <button type="button" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-5 py-2.5 rounded-xl transition">
-                        Cancel
+                        Clear
                     </button>
                     <button type="submit" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-6 py-2.5 rounded-xl transition shadow-md shadow-[#1f48ff]/20 flex items-center gap-2">
-                        <i data-lucide="check" class="w-4 h-4"></i> Save & Publish Job
+                        <i data-lucide="check" class="w-4 h-4"></i>Publish Job
                     </button>
                 </div>
 

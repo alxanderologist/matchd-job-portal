@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $user = 'root';
-$pass = 'password';
+$pass = 'dbsqlz';
 $db = 'matchddb';
 $port = 3307;
 

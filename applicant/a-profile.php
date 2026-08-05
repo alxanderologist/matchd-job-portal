@@ -14,7 +14,7 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="../images/matchd-logo-white.png" alt="Matchd Logo" class="h-6 w-auto"">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto"">
                 <span class="text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
             </div>
 
@@ -41,10 +41,9 @@
                 </a>
             </nav>
         </div>
-
         
         <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
+            <div class="w-10 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
             <div class="overflow-hidden">
                 <p class="text-xs font-semibold text-slate-200 truncate">Mazeah P</p>
                 <p class="text-[11px] text-slate-400 truncate">mgp@email.com</p>
@@ -90,13 +89,12 @@
                 </div>
             </div>
 
-            <!-- Content Grid Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="flex-1 gap-6">
 
                 <!-- Left Column: Form & Profile Details (2 Cols) -->
                 <div class="lg:col-span-2 space-y-6">
 
-                    <!-- Header Card: Personal Info -->
+                    <!-- Personal Info -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-6">
                         <div class="flex items-center gap-4 border-b border-slate-100 pb-5">
                             <div class="relative">
@@ -143,7 +141,7 @@
                         </div>
                     </div>
 
-                    <!-- Skills & Expertise Card -->
+                    <!-- Skills & Expertise  -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -221,65 +219,6 @@
                     </div>
 
                 </div>
-
-                <!-- Right Column: Match Progress & Analytics (1 Col) -->
-                <div class="space-y-6">
-
-                    <!-- Profile Completion Card -->
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <h3 class="font-bold text-slate-900 text-sm">Profile Match Index</h3>
-                            <span class="text-xs font-bold text-[#457a00] bg-[#457a00]/10 px-2 py-0.5 rounded-full">94% Complete</span>
-                        </div>
-
-                        <div class="space-y-3">
-                            <!-- Progress Bar -->
-                            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                <div class="bg-[#1f48ff] h-2 rounded-full" style="width: 94%"></div>
-                            </div>
-                            <p class="text-xs text-slate-500">Profiles above 90% receive <strong class="text-slate-800">3x more interview invites</strong> from employers.</p>
-                        </div>
-
-                        <!-- Checklist -->
-                        <div class="space-y-2 pt-2 text-xs">
-                            <div class="flex items-center gap-2 text-emerald-700 font-medium">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Basic Contact Details
-                            </div>
-                            <div class="flex items-center gap-2 text-emerald-700 font-medium">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Added 5+ Key Skill Tags
-                            </div>
-                            <div class="flex items-center gap-2 text-emerald-700 font-medium">
-                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Resume PDF Uploaded
-                            </div>
-                            <div class="flex items-center gap-2 text-slate-400">
-                                <i data-lucide="circle" class="w-4 h-4"></i> Add 1 Work Experience Entry
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Job Preferences Card -->
-                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
-                        <h3 class="font-bold text-slate-900 text-sm border-b border-slate-100 pb-3">Job Match Preferences</h3>
-
-                        <div class="space-y-3 text-xs">
-                            <div>
-                                <label class="block font-semibold text-slate-700 mb-1">Preferred Work Setup</label>
-                                <select class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff]">
-                                    <option value="remote">Remote Only</option>
-                                    <option value="hybrid">Hybrid</option>
-                                    <option value="onsite">On-Site</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block font-semibold text-slate-700 mb-1">Expected Monthly Salary</label>
-                                <div class="flex gap-2">
-                                    <input type="text" value="$3,500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff]">
-                                    <span class="text-slate-400 self-center font-semibold">USD</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
