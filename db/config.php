@@ -2,9 +2,9 @@
 
 $host = 'localhost';
 $user = 'root';
-$pass = 'dbsqlz';
+$pass = 'ARAYKO';
 $db = 'matchddb';
-$port = 3307;
+$port = 3306;
 
 $connection = new mysqli($host, $user, $pass, $db, $port);
 
