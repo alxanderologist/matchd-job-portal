@@ -1,3 +1,83 @@
+<?php
+
+session_start();
+
+require __DIR__ . '/../db/config.php';
+
+// --- Auth guard: must be logged in as an applicant ---
+if (!isset($_SESSION['user-id']) || $_SESSION['user-role'] !== 'applicant') {
+    header("Location: ../sessionPHP/login-page.php");
+    exit;
+}
+
+$userId = $_SESSION['user-id'];
+
+$stmt = $connection->prepare(
+    "SELECT u.full_name, u.email, p.id AS profile_id, p.headline, p.phone_number, p.bio, p.education,
+            p.resume_path, p.gi`thub_url, p.portfolio_url, p.availability_status
+     FROM users u
+     LEFT JOIN applicant_profiles p ON p.user_id = u.id
+     WHERE u.id = ?"
+);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$profile = $stmt->get_result()->fetch_assoc();
+$stmt->close();
+
+// Pull this applicant's current skill tags
+$skillTags = [];
+if (!empty($profile['profile_id'])) {
+    $tagStmt = $connection->prepare(
+        "SELECT t.name FROM applicant_tags at
+         JOIN tags t ON t.id = at.tag_id
+         WHERE at.applicant_id = ?
+         ORDER BY t.name"
+    );
+    $tagStmt->bind_param("i", $profile['profile_id']);
+    $tagStmt->execute();
+    $tagResult = $tagStmt->get_result();
+    while ($row = $tagResult->fetch_assoc()) {
+        $skillTags[] = $row['name'];
+    }
+    $tagStmt->close();
+}
+
+// Fallback in case a profile row doesn't exist yet for some reason
+$fullName    = $profile['full_name'] ?? '';
+$email       = $profile['email'] ?? '';
+$headline    = $profile['headline'] ?? '';
+$phone       = $profile['phone_number'] ?? '';
+$bio         = $profile['bio'] ?? '';
+$education   = $profile['education'] ?? '';
+$resumePath  = $profile['resume_path'] ?? '';
+$github      = $profile['github_url'] ?? '';
+$portfolio   = $profile['portfolio_url'] ?? '';
+
+$initials = '';
+foreach (explode(' ', trim($fullName)) as $part) {
+    if ($part !== '') $initials .= strtoupper($part[0]);
+}
+$initials = substr($initials, 0, 2) ?: '??';
+
+$successMessage = null;
+$errorMessage = null;
+
+if (isset($_GET['success'])) {
+    $successMessage = "Profile Changed Successfully.";
+}
+
+if (isset($_GET['error'])) {
+    $errorMap = [
+        'name_required'  => 'Full name cannot be empty.',
+        'bad_filetype'   => 'Resume must be a PDF, DOC, or DOCX file.',
+        'file_too_large' => 'Resume file must be 5MB or smaller.',
+        'upload_failed'  => 'Something went wrong uploading your resume. Please try again.',
+        'save_failed'    => 'Something went wrong saving your profile. Please try again.',
+    ];
+    $errorMessage = $errorMap[$_GET['error']] ?? 'Something went wrong. Please try again.';
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,13 +94,13 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto"">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto">
                 <span class="text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
             </div>
 
             <!-- List of Menu Items -->
             <nav class="space-y-1.5">
-            
+
                 <a href="a-jobs.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
                     <i data-lucide="compass" class="w-4 h-4"></i>
                     Explore Jobs
@@ -35,18 +115,18 @@
                     Interviews
                     <span class="ml-auto bg-[#457a00] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1 New</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 bg-[#1f48ff] text-white font-semibold px-3 py-2 rounded-xl transition text-sm shadow-lg shadow-[#1f48ff]/20">
+                <a href="a-profile.php" class="flex items-center gap-3 bg-[#1f48ff] text-white font-semibold px-3 py-2 rounded-xl transition text-sm shadow-lg shadow-[#1f48ff]/20">
                     <i data-lucide="user" class="w-4 h-4"></i>
                     My Profile & Skills
                 </a>
             </nav>
         </div>
-        
+
         <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
-            <div class="w-10 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
+            <div class="w-10 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs"><?php echo htmlspecialchars($initials); ?></div>
             <div class="overflow-hidden">
-                <p class="text-xs font-semibold text-slate-200 truncate">Mazeah P</p>
-                <p class="text-[11px] text-slate-400 truncate">mgp@email.com</p>
+                <p class="text-xs font-semibold text-slate-200 truncate"><?php echo htmlspecialchars($fullName); ?></p>
+                <p class="text-[11px] text-slate-400 truncate"><?php echo htmlspecialchars($email); ?></p>
             </div>
             <div>
                 <a class="inline-block bg-red-600 text-white font-medium px-4 py-2 rounded-lg text-xs" href="../sessionPHP/logout.php">Logout</a>
@@ -56,7 +136,7 @@
 
     <!-- Main  -->
     <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        
+
         <!-- Top Navbar -->
         <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-10">
             <div class="relative w-80">
@@ -83,13 +163,25 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <button id="save-profile-btn" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition shadow-md shadow-[#1f48ff]/20 flex items-center gap-2">
+                    <button type="submit" form="profile-form" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition shadow-md shadow-[#1f48ff]/20 flex items-center gap-2">
                         <i data-lucide="check" class="w-4 h-4"></i> Save Profile Changes
                     </button>
                 </div>
             </div>
 
-            <div class="flex-1 gap-6">
+            <?php if ($successMessage): ?>
+                <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-md text-emerald-700 text-sm">
+                    <?php echo htmlspecialchars($successMessage); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($errorMessage): ?>
+                <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-md text-red-700 text-sm">
+                    <?php echo htmlspecialchars($errorMessage); ?>
+                </div>
+            <?php endif; ?>
+
+            <form id="profile-form" action="../applicant/a-updateprofile.php" method="POST" enctype="multipart/form-data" class="flex-1 gap-6">
 
                 <!-- Left Column: Form & Profile Details (2 Cols) -->
                 <div class="lg:col-span-2 space-y-6">
@@ -99,17 +191,17 @@
                         <div class="flex items-center gap-4 border-b border-slate-100 pb-5">
                             <div class="relative">
                                 <div class="w-20 h-20 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold text-2xl shadow-sm">
-                                    JD
+                                    <?php echo htmlspecialchars($initials); ?>
                                 </div>
-                                <button class="absolute -bottom-1 -right-1 bg-white p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-[#1f48ff] shadow-xs transition">
+                                <button type="button" class="absolute -bottom-1 -right-1 bg-white p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-[#1f48ff] shadow-xs transition">
                                     <i data-lucide="camera" class="w-3.5 h-3.5"></i>
                                 </button>
                             </div>
                             <div class="space-y-1">
-                                <h2 class="text-lg font-bold text-slate-900">John Doe</h2>
-                                <p class="text-xs text-slate-500">Senior Frontend & UI Engineer • Manila, Philippines</p>
+                                <h2 class="text-lg font-bold text-slate-900"><?php echo htmlspecialchars($fullName); ?></h2>
+                                <p class="text-xs text-slate-500"><?php echo htmlspecialchars($headline ?: 'Add a headline below'); ?></p>
                                 <span class="inline-block text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full border border-emerald-200/60">
-                                    Open to Opportunities
+                                    <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $profile['availability_status'] ?? 'open'))); ?>
                                 </span>
                             </div>
                         </div>
@@ -118,26 +210,32 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
-                                <input type="text" value="John Doe" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="text" name="full_name" required value="<?php echo htmlspecialchars($fullName); ?>" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Headline / Role Title</label>
-                                <input type="text" value="Senior Frontend Engineer" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="text" name="headline" value="<?php echo htmlspecialchars($headline); ?>" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-                                <input type="email" value="john.doe@email.com" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="email" value="<?php echo htmlspecialchars($email); ?>" disabled class="w-full px-3.5 py-2 text-sm bg-slate-100 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
-                                <input type="tel" value="+63 917 123 4567" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="tel" name="phone_number" value="<?php echo htmlspecialchars($phone); ?>" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
                             </div>
+                        </div>
+
+                        <!-- Education -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Education</label>
+                            <textarea name="education" rows="2" placeholder="e.g. BS Information Technology, Central Luzon State University" class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition resize-none text-slate-700"><?php echo htmlspecialchars($education); ?></textarea>
                         </div>
 
                         <!-- Bio -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Professional Bio</label>
-                            <textarea rows="3" class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition resize-none text-slate-700">Passionate Frontend Engineer with 4+ years of experience building modern, responsive UI web applications using React, Tailwind CSS, and TypeScript.</textarea>
+                            <textarea name="bio" rows="3" class="w-full p-3.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition resize-none text-slate-700"><?php echo htmlspecialchars($bio); ?></textarea>
                         </div>
                     </div>
 
@@ -154,33 +252,23 @@
                         <!-- Skill Tags Input Box -->
                         <div class="space-y-3">
                             <div class="flex gap-2">
-                                <input id="profile-tag-input" type="text" placeholder="Type a skill tag (e.g. #nextjs) and press enter..." class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
-                                <button id="profile-tag-button" type="button" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1">
+                                <input type="text" id="tag-input-field" placeholder="Type a skill tag (e.g. nextjs) and press enter..." class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                                <button type="button" id="tag-button" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1">
                                     <i data-lucide="plus" class="w-4 h-4"></i> Add Tag
                                 </button>
                             </div>
 
-                
-                            <div id="profile-tag-container" class="flex flex-wrap gap-2 pt-2">
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    React.js <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    Tailwind CSS <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    TypeScript <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    JavaScript (ES6+) <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    Figma to Code <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
-                                <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
-                                    REST APIs <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                                </span>
+                            <div id="tag-container" class="flex flex-wrap gap-2 pt-2">
+                                <?php foreach ($skillTags as $tag): ?>
+                                    <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl inline-flex items-center gap-1.5">
+                                        <?php echo htmlspecialchars($tag); ?>
+                                        <button type="button" class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
+                                    </span>
+                                <?php endforeach; ?>
                             </div>
+
+                            <!-- This hidden field is what actually gets sent to the server on submit -->
+                            <input type="hidden" id="submitted-tags-container" name="submitted-tags" value="">
                         </div>
                     </div>
 
@@ -191,48 +279,112 @@
                             Resume & Online Portfolios
                         </h2>
 
-                        <!-- Resume Upload Drag and Drop -->
-                        <div id="resume-drop-zone" class="border-2 border-dashed border-slate-200 rounded-2xl p-5 text-center bg-slate-50/50 hover:border-[#1f48ff]/50 transition cursor-pointer space-y-2">
-                            
-                            <input type="file" id="resume-file-input" class="hidden" accept=".pdf,.doc,.docx">
-
+                        <!-- Resume Upload -->
+                        <label for="resume-input" class="block border-2 border-dashed border-slate-200 rounded-2xl p-5 text-center bg-slate-50/50 hover:border-[#1f48ff]/50 transition cursor-pointer space-y-2">
                             <div class="w-10 h-10 bg-blue-50 text-[#1f48ff] rounded-xl mx-auto flex items-center justify-center">
                                 <i data-lucide="upload-cloud" class="w-5 h-5"></i>
                             </div>
                             <div>
                                 <p class="text-xs font-bold text-slate-800">Upload Updated Resume / CV</p>
-                                <p class="text-[11px] text-slate-400">PDF or DOCX (Max size: 5MB)</p>
+                                <p class="text-[11px] text-slate-400">PDF, DOC, or DOCX (Max size: 5MB)</p>
                             </div>
-                            
-                            <div id="current-file-name" class="inline-block bg-white text-slate-700 border border-slate-200 text-[11px] font-semibold px-3 py-1 rounded-lg">
-                                Current File: John_Doe_Resume_2026.pdf
+                            <div class="inline-block bg-white text-slate-700 border border-slate-200 text-[11px] font-semibold px-3 py-1 rounded-lg">
+                                <?php if ($resumePath): ?>
+                                    Current File: <?php echo htmlspecialchars(basename($resumePath)); ?>
+                                <?php else: ?>
+                                    No resume uploaded yet
+                                <?php endif; ?>
                             </div>
-                        </div>
+                            <input id="resume-input" type="file" name="resume" accept=".pdf,.doc,.docx" class="hidden">
+                        </label>
 
                         <!-- Portfolio URLs -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">GitHub Profile</label>
-                                <input type="url" value="https://github.com/johndoe" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="url" name="github_url" value="<?php echo htmlspecialchars($github); ?>" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Portfolio / Website</label>
-                                <input type="url" value="https://johndoe.dev" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
+                                <input type="url" name="portfolio_url" value="<?php echo htmlspecialchars($portfolio); ?>" class="w-full px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition text-slate-700">
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                </div>
-
-            </div>
+            </form>
 
         </div>
     </main>
-   
+
     <script>
         lucide.createIcons();
+
+        // Show the chosen filename right away so users get feedback before saving
+        const resumeInput = document.getElementById('resume-input');
+        resumeInput.addEventListener('change', () => {
+            if (resumeInput.files.length > 0) {
+                const label = resumeInput.closest('label').querySelector('.inline-block');
+                label.textContent = 'Selected: ' + resumeInput.files[0].name;
+            }
+        });
+
+        // --- Skill tag add / remove (client-side only until Save is clicked) ---
+        const tagContainer = document.getElementById('tag-container');
+        const tagInput = document.getElementById('tag-input-field');
+        const tagButton = document.getElementById('tag-button');
+
+        function addTag() {
+            const inputTag = tagInput.value.trim();
+            if (inputTag === "") return;
+
+            const newTag = document.createElement('span');
+            newTag.className = "bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl inline-flex items-center gap-1.5";
+
+            const tagText = document.createTextNode(inputTag);
+
+            const xButton = document.createElement('button');
+            xButton.setAttribute('type', 'button');
+            xButton.className = "hover:text-red-500";
+            xButton.innerHTML = '<i data-lucide="x" class="w-3 h-3"></i>';
+
+            newTag.appendChild(tagText);
+            newTag.appendChild(xButton);
+            tagContainer.appendChild(newTag);
+            lucide.createIcons();
+
+            tagInput.value = "";
+        }
+
+        tagButton.addEventListener("click", addTag);
+        tagInput.addEventListener("keydown", (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addTag();
+            }
+        });
+
+        tagContainer.addEventListener("click", (event) => {
+            const btn = event.target.closest('button');
+            if (btn) {
+                btn.closest('span').remove();
+            }
+        });
+
+        // --- Serialize tags into the hidden field right before the form submits ---
+        const profileForm = document.getElementById('profile-form');
+        const submittedTagsField = document.getElementById('submitted-tags-container');
+
+        profileForm.addEventListener('submit', () => {
+            const tagSpans = tagContainer.querySelectorAll('span');
+            const tagsArray = Array.from(tagSpans).map(span => span.firstChild.textContent.trim());
+            submittedTagsField.value = tagsArray.join(',');
+        });
+
+        <?php if ($successMessage): ?>
+        alert("<?php echo addslashes($successMessage); ?>");
+        <?php endif; ?>
     </script>
     <script src="../applicantJS/search.js"></script>
     <script src="../applicantJS/profile.js"></script>
