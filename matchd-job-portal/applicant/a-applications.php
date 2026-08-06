@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../output.css">
+    <title>Matchd | Applicant Dashboard</title>
+</head>
+
+<body class="bg-blue-50/50 text-slate-800 font-sans min-h-screen flex antialiased">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-slate-900 text-white min-h-screen p-5 flex flex-col justify-between border-r border-slate-800 shrink-0">
+        <div class="space-y-8">
+
+            <div class="px-2 pt-2 flex items-center gap-3">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto">
+                <span class=" text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
+            </div>
+
+            <!-- List of Menu Items -->
+            <nav class="space-y-1.5">
+
+                <a href="a-jobs.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="compass" class="w-4 h-4"></i>
+                    Explore Jobs
+                </a>
+                <a href="#" class="flex items-center gap-3 bg-[#1f48ff] text-white font-semibold px-3 py-2 rounded-xl transition text-sm shadow-lg shadow-[#1f48ff]/20">
+                    <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    My Applications
+                    <span class="ml-auto bg-slate-800 text-slate-300 text-xs px-2 py-0.5 rounded-full font-bold">3</span>
+                </a>
+                <a href="a-interview.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                    Interviews
+                    <span class="ml-auto bg-[#457a00] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">1 New</span>
+                </a>
+                <a href="a-profile.php" class="flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800/60 font-medium px-3 py-2 rounded-xl transition text-sm">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    My Profile & Skills
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-3 bg-slate-800/50 rounded-2xl border border-slate-800/80 flex items-center gap-3">
+            <div class="w-10 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">MP</div>
+            <div class="overflow-hidden">
+                <p class="text-xs font-semibold text-slate-200 truncate">Mazeah P</p>
+                <p class="text-[11px] text-slate-400 truncate">mgp@email.com</p>
+            </div>
+            <div>
+                <a class="inline-block bg-red-600 text-white font-medium px-4 py-2 rounded-lg text-xs" href="../sessionPHP/logout.php">Logout</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main  -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-8 flex items-center justify-between sticky top-0 z-10">
+            <div class="relative w-80">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" placeholder="Search by role or company..." class="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-100/80 border border-transparent rounded-lg focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span class="w-2 h-2 bg-[#1f48ff] rounded-full absolute top-1.5 right-1.5 border-2 border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <div class="p-8 space-y-6 max-w-6xl w-full mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Track Applications</h1>
+                    <p class="text-sm text-slate-500 mt-0.5">Real-time status updates and upcoming interview schedules.</p>
+                </div>
+
+                <!-- Filter Tabs (UPDATED) -->
+                <div class="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl text-xs font-medium text-slate-600 shrink-0">
+                    <button id="tab-all-apps" class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs transition-all">All (3)</button>
+                    <button id="tab-active-apps" class="px-3 py-1.5 hover:text-slate-900 hover:bg-slate-300/50 rounded-lg transition-all text-slate-500">Active</button>
+                    <button id="tab-interview-apps" class="px-3 py-1.5 hover:text-slate-900 hover:bg-slate-300/50 rounded-lg transition-all text-slate-500">Interviews</button>
+                </div>
+            </div>
+
+            <!-- Pipeline Progress -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#1f48ff] flex items-center justify-center font-bold">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Applied Jobs</p>
+                        <p class="text-lg font-bold text-slate-900">3</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Under Review</p>
+                        <p class="text-lg font-bold text-slate-900">1</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#457a00]/10 text-[#457a00] flex items-center justify-center font-bold">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Interviews</p>
+                        <p class="text-lg font-bold text-slate-900">1</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                        <i data-lucide="bookmark" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 font-medium">Saved Jobs</p>
+                        <p class="text-lg font-bold text-slate-900">4</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List of Applications -->
+            <div class="space-y-4">
+                <!-- Interview Scheduled (UPDATED) -->
+                <div class="app-card bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4 border-l-4 border-l-[#457a00]" data-status="interview">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm">ST</div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-bold text-slate-900 text-base">Cyber Security Analyst</h3>
+                                    <span class="bg-[#457a00]/10 text-[#457a00] border border-[#457a00]/20 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                        <i data-lucide="video" class="w-3 h-3"></i> Interview Scheduled
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">SecureTech Corp • Manila, PH • Applied Aug 1, 2026</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-semibold text-slate-700 block">$3,000 - $4,200 / mo</span>
+                            <span class="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md mt-1 inline-block">92% Match</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#457a00]/5 border border-[#457a00]/20 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <i data-lucide="clock" class="w-4 h-4 text-[#457a00]"></i>
+                            <span class="text-xs font-medium text-slate-800">
+                                Interview: <strong class="text-[#457a00]">Today at 2:00 PM (Google Meet)</strong>
+                            </span>
+                        </div>
+                        <a href="https://meet.google.com" target="_blank" class="bg-[#457a00] hover:bg-[#396600] text-white text-xs font-semibold px-4 py-1.5 rounded-lg transition text-center shrink-0 flex items-center justify-center gap-1.5">
+                            <i data-lucide="video" class="w-3.5 h-3.5"></i> Join Room
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Under Review (UPDATED) -->
+                <div class="app-card bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4" data-status="active">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1f48ff] border border-blue-100 flex items-center justify-center font-bold text-sm">MC</div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-bold text-slate-900 text-base">Senior Frontend Engineer</h3>
+                                    <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                        <i data-lucide="hourglass" class="w-3 h-3"></i> Under Review
+                                    </span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">MCorp Tech Solutions • Remote • Applied Jul 28, 2026</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs font-semibold text-slate-700 block">$3,500 - $4,500 / mo</span>
+                            <span class="text-[11px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md mt-1 inline-block">98% Match</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs border-t border-slate-100 pt-3">
+                        <span class="text-slate-500">Recruiter viewed profile 1 day ago</span>
+                        <button class="text-[#1f48ff] font-semibold hover:underline flex items-center gap-1">
+                            View Submission <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="../applicantJS/search.js"></script>
+    <script src="../applicantJS/applications.js"></script>
+</body>
+
+</html>
