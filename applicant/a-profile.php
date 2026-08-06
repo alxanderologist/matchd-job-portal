@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition shadow-md shadow-[#1f48ff]/20 flex items-center gap-2">
+                    <button id="save-profile-btn" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition shadow-md shadow-[#1f48ff]/20 flex items-center gap-2">
                         <i data-lucide="check" class="w-4 h-4"></i> Save Profile Changes
                     </button>
                 </div>
@@ -154,14 +154,14 @@
                         <!-- Skill Tags Input Box -->
                         <div class="space-y-3">
                             <div class="flex gap-2">
-                                <input type="text" placeholder="Type a skill tag (e.g. #nextjs) and press enter..." class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
-                                <button type="button" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1">
+                                <input id="profile-tag-input" type="text" placeholder="Type a skill tag (e.g. #nextjs) and press enter..." class="flex-1 px-3.5 py-2 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#1f48ff] focus:bg-white transition">
+                                <button id="profile-tag-button" type="button" class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1">
                                     <i data-lucide="plus" class="w-4 h-4"></i> Add Tag
                                 </button>
                             </div>
 
                 
-                            <div class="flex flex-wrap gap-2 pt-2">
+                            <div id="profile-tag-container" class="flex flex-wrap gap-2 pt-2">
                                 <span class="bg-[#1f48ff]/10 text-[#1f48ff] border border-[#1f48ff]/20 text-xs font-semibold px-3 py-1 rounded-xl flex items-center gap-1.5">
                                     React.js <button class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
                                 </span>
@@ -192,7 +192,10 @@
                         </h2>
 
                         <!-- Resume Upload Drag and Drop -->
-                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-5 text-center bg-slate-50/50 hover:border-[#1f48ff]/50 transition cursor-pointer space-y-2">
+                        <div id="resume-drop-zone" class="border-2 border-dashed border-slate-200 rounded-2xl p-5 text-center bg-slate-50/50 hover:border-[#1f48ff]/50 transition cursor-pointer space-y-2">
+                            
+                            <input type="file" id="resume-file-input" class="hidden" accept=".pdf,.doc,.docx">
+
                             <div class="w-10 h-10 bg-blue-50 text-[#1f48ff] rounded-xl mx-auto flex items-center justify-center">
                                 <i data-lucide="upload-cloud" class="w-5 h-5"></i>
                             </div>
@@ -200,7 +203,8 @@
                                 <p class="text-xs font-bold text-slate-800">Upload Updated Resume / CV</p>
                                 <p class="text-[11px] text-slate-400">PDF or DOCX (Max size: 5MB)</p>
                             </div>
-                            <div class="inline-block bg-white text-slate-700 border border-slate-200 text-[11px] font-semibold px-3 py-1 rounded-lg">
+                            
+                            <div id="current-file-name" class="inline-block bg-white text-slate-700 border border-slate-200 text-[11px] font-semibold px-3 py-1 rounded-lg">
                                 Current File: John_Doe_Resume_2026.pdf
                             </div>
                         </div>
@@ -230,5 +234,7 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="../applicantJS/search.js"></script>
+    <script src="../applicantJS/profile.js"></script>
 </body>
 </html>

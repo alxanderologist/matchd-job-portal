@@ -14,7 +14,7 @@
         <div class="space-y-8">
 
             <div class="px-2 pt-2 flex items-center gap-3">
-                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto"">
+                <img src="../images/matchd-logo.png" alt="Matchd Logo" class="h-8 w-auto">
                 <span class="text-[10px] bg-[#1f48ff]/20 text-[#1f48ff] border border-[#1f48ff]/30 px-2 py-0.5 rounded-full font-semibold ml-auto">Applicant</span>
             </div>
 
@@ -80,103 +80,149 @@
                 </div>
 
                 <div class="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl text-xs font-medium text-slate-600 shrink-0">
-                    <button class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs">Upcoming (2)</button>
-                    <button class="px-3 py-1.5 hover:text-slate-900 rounded-lg transition">Completed</button>
+                    <button id="tab-upcoming" class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs transition-all">Upcoming (2)</button>
+                    <button id="tab-completed" class="px-3 py-1.5 hover:text-slate-900 hover:bg-slate-300/50 rounded-lg transition-all text-slate-500">Completed</button>
                 </div>
             </div>
 
-            <!-- Urgent / Today's Featured Interview Banner -->
-            <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-[#457a00]/90 p-6 rounded-2xl text-white shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div class="space-y-3 max-w-xl">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-[#457a00] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span> Starting Today
-                        </span>
-                        <span class="text-xs text-slate-300">2:00 PM - 2:45 PM (PST)</span>
+            <!-- UPCOMING VIEW CONTAINER -->
+            <div id="upcoming-view" class="space-y-6">
+                <!-- Urgent / Today's Featured Interview Banner -->
+                <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-[#457a00]/90 p-6 rounded-2xl text-white shadow-md border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="space-y-3 max-w-xl">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-[#457a00] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span> Starting Today
+                            </span>
+                            <span class="text-xs text-slate-300">2:00 PM - 2:45 PM (PST)</span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold">Cyber Security Analyst Interview</h2>
+                            <p class="text-xs text-slate-300 mt-0.5">SecureTech Corp • Initial HR Screening</p>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs text-slate-300 pt-1">
+                            <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5 text-[#1f48ff]"></i> Interviewer: Sarah Jenkins</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#457a00]"></i> 45 minutes</span>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold">Cyber Security Analyst Interview</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">SecureTech Corp • Initial HR Screening</p>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs text-slate-300 pt-1">
-                        <span class="flex items-center gap-1.5"><i data-lucide="user" class="w-3.5 h-3.5 text-[#1f48ff]"></i> Interviewer: Sarah Jenkins</span>
-                        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#457a00]"></i> 45 minutes</span>
+
+                    <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
+                        <a href="https://meet.google.com" target="_blank" class="bg-[#457a00] hover:bg-[#386400] text-white font-semibold text-xs px-5 py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                            <i data-lucide="video" class="w-4 h-4"></i> Join Google Meet Room
+                        </a>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
-                    <a href="https://meet.google.com" target="_blank" class="bg-[#457a00] hover:bg-[#386400] text-white font-semibold text-xs px-5 py-3 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
-                        <i data-lucide="video" class="w-4 h-4"></i> Join Google Meet Room
-                    </a>
-                </div>
-            </div>
+                <!-- List of All Scheduled Meetings -->
+                <div class="space-y-4">
+                    <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="calendar-days" class="w-4 h-4 text-[#1f48ff]"></i>
+                        Upcoming Meetings
+                    </h3>
 
-            <!-- List of All Scheduled Meetings -->
-            <div class="space-y-4">
+                    <!-- Interview Card 1: Today -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm">ST</div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="font-bold text-slate-900 text-base">Cyber Security Analyst</h4>
+                                        <span class="bg-[#457a00]/10 text-[#457a00] border border-[#457a00]/20 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                                            HR Screening
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5">SecureTech Corp • Scheduled for Today, Aug 2, 2026</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <a href="https://meet.google.com" target="_blank" class="bg-[#457a00] hover:bg-[#386400] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5">
+                                    <i data-lucide="video" class="w-3.5 h-3.5"></i> Join Call
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
+                            <p class="font-semibold text-slate-800">Recruiter Instruction:</p>
+                            <p>Please ensure your microphone and camera are tested prior to joining. Be ready to present your past security audit projects.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interview Card 2: Future Date -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1f48ff] border border-blue-100 flex items-center justify-center font-bold text-sm">MC</div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="font-bold text-slate-900 text-base">Senior Frontend Engineer</h4>
+                                        <span class="bg-blue-50 text-[#1f48ff] border border-blue-100 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                                            Technical Assessment
+                                        </span>
+                                    </div>
+                                    <!-- ADDED ID HERE -->
+                                    <p id="interview-date-text" class="text-xs text-slate-500 mt-0.5">MCorp Tech Solutions • Scheduled for Aug 8, 2026 @ 10:00 AM</p>
+                                </div>
+                            </div>
+
+                            
+                            <div class="flex flex-col items-end gap-1.5 shrink-0">
+                                
+                                <div class="relative flex justify-end w-full">
+                                    <button id="reschedule-btn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5 shrink-0">
+                                        <i data-lucide="clock" class="w-3.5 h-3.5"></i> Reschedule
+                                    </button>
+                                    <input type="datetime-local" id="reschedule-input" style="opacity: 0; width: 0; height: 0; position: absolute; pointer-events: none;">
+                                </div>
+                                
+                                <p id="attempts-text" class="text-[10px] text-slate-400 font-medium transition-colors text-right">
+                                    3 attempts remaining
+                                </p>
+                                
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
+                            <p class="font-semibold text-slate-800">Recruiter Instruction:</p>
+                            <p>This session will include a 30-minute live paired coding assessment on React and component state design.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- End of Upcoming View -->
+
+            <!-- COMPLETED VIEW CONTAINER -->
+            <div id="completed-view" class="space-y-6 hidden">
                 <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                    <i data-lucide="calendar-days" class="w-4 h-4 text-[#1f48ff]"></i>
-                    Upcoming Meetings
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+                    Past Meetings
                 </h3>
 
-                <!-- Interview Card 1: Today -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+                <!-- Completed Interview Card -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4 opacity-80">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm">ST</div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">NX</div>
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <h4 class="font-bold text-slate-900 text-base">Cyber Security Analyst</h4>
-                                    <span class="bg-[#457a00]/10 text-[#457a00] border border-[#457a00]/20 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                        HR Screening
+                                    <h4 class="font-bold text-slate-700 text-base">UI/UX Web Developer</h4>
+                                    <span class="bg-slate-200 text-slate-600 border border-slate-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                                        Initial Interview
                                     </span>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-0.5">SecureTech Corp • Scheduled for Today, Aug 2, 2026</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Nexus Labs • Completed on Jul 15, 2026</p>
                             </div>
                         </div>
 
                         <div class="flex items-center gap-2">
-                            <a href="https://meet.google.com" target="_blank" class="bg-[#457a00] hover:bg-[#386400] text-white font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5">
-                                <i data-lucide="video" class="w-3.5 h-3.5"></i> Join Call
-                            </a>
+                            <span class="bg-emerald-50 text-emerald-700 font-semibold text-xs px-4 py-2 rounded-xl border border-emerald-200 flex items-center gap-1.5">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i> Awaiting Feedback
+                            </span>
                         </div>
-                    </div>
-
-                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
-                        <p class="font-semibold text-slate-800">Recruiter Instruction:</p>
-                        <p>Please ensure your microphone and camera are tested prior to joining. Be ready to present your past security audit projects.</p>
                     </div>
                 </div>
-
-                <!-- Interview Card 2: Future Date -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1f48ff] border border-blue-100 flex items-center justify-center font-bold text-sm">MC</div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <h4 class="font-bold text-slate-900 text-base">Senior Frontend Engineer</h4>
-                                    <span class="bg-blue-50 text-[#1f48ff] border border-blue-100 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                                        Technical Assessment
-                                    </span>
-                                </div>
-                                <p class="text-xs text-slate-500 mt-0.5">MCorp Tech Solutions • Scheduled for Aug 8, 2026 @ 10:00 AM</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2 rounded-xl transition flex items-center gap-1.5">
-                                <i data-lucide="clock" class="w-3.5 h-3.5"></i> Reschedule
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 text-xs text-slate-600 space-y-1">
-                        <p class="font-semibold text-slate-800">Recruiter Instruction:</p>
-                        <p>This session will include a 30-minute live paired coding assessment on React and component state design.</p>
-                    </div>
-                </div>
-
-            </div>
+            </div> <!-- End of Completed View -->
 
         </div>
     </main>
@@ -184,5 +230,7 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="../applicantJS/search.js"></script>
+    <script src="../applicantJS/interview.js"></script>
 </body>
 </html>

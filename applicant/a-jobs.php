@@ -85,7 +85,7 @@
                     <h1 class="text-xl font-bold tracking-tight">Welcome back, Zeah! 👋</h1>
                     <p class="text-xs text-slate-300">We found <span class="font-bold text-white">12 new job matches</span> based on your React & Frontend skills.</p>
                 </div>
-                <button class="bg-white text-slate-900 hover:bg-slate-100 text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm">
+                <button onclick="window.location.href='a-profile.php'" class="bg-white text-slate-900 hover:bg-slate-100 text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm relative z-50">
                     Update Profile Skills
                 </button>
             </div>
@@ -135,7 +135,7 @@
                         <!-- Card Footer -->
                         <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
                             <span class="font-semibold text-slate-700">$3,500 - $4,500 <span class="text-[10px] text-slate-400 font-normal">/ month</span></span>
-                            <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold px-4 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1.5 text-xs">
+                            <button data-job-id="1052" class="apply-job-btn bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold px-4 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1.5 text-xs">
                                 Apply Now <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
@@ -172,7 +172,7 @@
                         <!-- Card Footer -->
                         <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
                             <span class="font-semibold text-slate-700">$2,800 - $3,600 <span class="text-[10px] text-slate-400 font-normal">/ month</span></span>
-                            <button class="bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold px-4 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1.5 text-xs">
+                            <button data-job-id="1052" class="apply-job-btn bg-[#1f48ff] hover:bg-[#1a3ed6] text-white font-semibold px-4 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1.5 text-xs">
                                 Apply Now <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
@@ -185,7 +185,7 @@
                     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-5 space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h3 class="font-bold text-slate-900 text-sm">Active Applications</h3>
-                            <a href="#" class="text-xs font-semibold text-[#1f48ff] hover:underline">View All</a>
+                            <a href="../applicant/a-applications.php" class="text-xs font-semibold text-[#1f48ff] hover:underline">View All</a>
                         </div>
 
                         <div class="space-y-3">
@@ -226,5 +226,7 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="../applicantJS/apply-job.js"></script>
+    <script src="../applicantJS/search.js"></script>
 </body>
 </html>

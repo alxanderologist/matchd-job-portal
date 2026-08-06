@@ -79,10 +79,11 @@
                     <p class="text-sm text-slate-500 mt-0.5">Real-time status updates and upcoming interview schedules.</p>
                 </div>
 
+                <!-- Filter Tabs (UPDATED) -->
                 <div class="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl text-xs font-medium text-slate-600 shrink-0">
-                    <button class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs">All (3)</button>
-                    <button class="px-3 py-1.5 hover:text-slate-900 rounded-lg transition">Active</button>
-                    <button class="px-3 py-1.5 hover:text-slate-900 rounded-lg transition">Interviews</button>
+                    <button id="tab-all-apps" class="px-3 py-1.5 bg-white text-slate-900 rounded-lg font-bold shadow-xs transition-all">All (3)</button>
+                    <button id="tab-active-apps" class="px-3 py-1.5 hover:text-slate-900 hover:bg-slate-300/50 rounded-lg transition-all text-slate-500">Active</button>
+                    <button id="tab-interview-apps" class="px-3 py-1.5 hover:text-slate-900 hover:bg-slate-300/50 rounded-lg transition-all text-slate-500">Interviews</button>
                 </div>
             </div>
 
@@ -131,8 +132,8 @@
 
             <!-- List of Applications -->
             <div class="space-y-4">
-                <!-- Interview Scheduled -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4 border-l-4 border-l-[#457a00]">
+                <!-- Interview Scheduled (UPDATED) -->
+                <div class="app-card bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4 border-l-4 border-l-[#457a00]" data-status="interview">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm">ST</div>
@@ -165,8 +166,8 @@
                     </div>
                 </div>
 
-                <!-- Under Review -->
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+                <!-- Under Review (UPDATED) -->
+                <div class="app-card bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4" data-status="active">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#1f48ff] border border-blue-100 flex items-center justify-center font-bold text-sm">MC</div>
@@ -199,6 +200,8 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="../applicantJS/search.js"></script>
+    <script src="../applicantJS/applications.js"></script>
 </body>
 
 </html>
